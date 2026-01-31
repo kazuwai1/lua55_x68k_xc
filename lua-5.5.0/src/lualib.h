@@ -57,12 +57,15 @@ LUAMOD_API int (luaopen_utf8) (lua_State *L);
 #if defined(human68k)
 #ifdef LUA_USE_X68KLIB
 #define LUA_X68KNAME	"x68k"
+#define LUA_X68KLIBK	(LUA_UTF8LIBK << 1)
 LUAMOD_API	int (luaopen_x68k) (lua_State *L);
 
 #define CJSON_MODNAME	"cjson"
+#define LUA_CJSONLIBK	(LUA_X68KLIBK << 1)
 LUAMOD_API	int (luaopen_cjson) (lua_State *L);
 
 #define CJSONSAFE_MODNAME	"cjson.safe"
+#define LUA_CJSONSAFELIBK	(LUA_CJSONLIBK << 1)
 LUAMOD_API	int (luaopen_cjson_safe) (lua_State *L);
 #endif
 #endif

@@ -52,6 +52,7 @@ LUALIB_API void luaL_openselectedlibs (lua_State *L, int load, int preload) {
   int mask;
   const luaL_Reg *lib;
   luaL_getsubtable(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE);
+
   for (lib = stdlibs, mask = 1; lib->name != NULL; lib++, mask <<= 1) {
     if (load & mask) {  /* selected? */
       luaL_requiref(L, lib->name, lib->func, 1);  /* require library */
@@ -62,7 +63,11 @@ LUALIB_API void luaL_openselectedlibs (lua_State *L, int load, int preload) {
       lua_setfield(L, -2, lib->name);  /* add library to PRELOAD table */
     }
   }
+#if !defined(human68k)
   lua_assert((mask >> 1) == LUA_UTF8LIBK);
+#else
+  lua_assert((mask >> 1) == LUA_CJSONSAFELIBK);
+#endif
   lua_pop(L, 1);  /* remove PRELOAD table */
 }
 
